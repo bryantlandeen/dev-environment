@@ -12,7 +12,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  spec = {{ import = "connor.plugins" }},
+  spec = {
+    { import = "connor.plugins" },
+    { import = "connor.plugins.cmp_and_lsp"},
+  },
   install = { colorscheme = { "gruvbox" } },
   checker = {
     enabled = true,

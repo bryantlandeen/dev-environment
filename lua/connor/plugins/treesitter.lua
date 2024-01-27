@@ -13,6 +13,7 @@ return {
           "lua",
           "python",
           "vim",
+          "vimdoc",
           "gitignore",
       },
       sync_install = false,
