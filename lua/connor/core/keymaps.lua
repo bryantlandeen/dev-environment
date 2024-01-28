@@ -5,7 +5,7 @@ vim.g.mapleader = " "
 vim.keymap.set("i", "jk", "<ESC>")
 
 -- clear search highlight
-vim.keymap.set("n", "<leader>nh", "<cmd>nohl<CR>")
+vim.keymap.set("n", "<leader>hl", "<cmd>nohl<CR>")
 
 -- window management
 vim.keymap.set("n", "<leader>sv", "<C-w>v") --split window virtically
@@ -18,10 +18,6 @@ vim.keymap.set("n", "<C-Up>", ":resize -2<CR>")
 vim.keymap.set("n", "<C-Down>", ":resize +2<CR>")
 vim.keymap.set("n", "<C-Left>", ":vertical resize +2<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize -2<CR>")
-
--- navegate buffers
-vim.keymap.set("n", "<leader>n", ":bnext<CR>")
-vim.keymap.set("n", "<leader>b", ":bprevious<CR>")
 
 -- eddit neovim config
 vim.keymap.set("n", "<leader>ev", ":e ~/.config/nvim/<CR>")

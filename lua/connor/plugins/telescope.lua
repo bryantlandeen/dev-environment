@@ -22,12 +22,24 @@ return {
         },
       },
     })
+    -- print(require("nvim-tree.core").get_cwd())
+
+    local get_cwd = function()
+      local cwd = require("nvim-tree.core").get_cwd()
+      if cwd == nil then
+        return vim.fn.getcwd()
+      end
+      return cwd
+    end
 
     -- set keymaps
-    vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
-    vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
-    vim.keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
-    vim.keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
+    local builtin = require('telescope.builtin')
+    vim.keymap.set("n", "<leader>ff", function() builtin.find_files({cwd = get_cwd()}) end, { desc = "Fuzzy find files in nvim-tree cwd" })
+    vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Fuzzy find recent files" })
+    vim.keymap.set("n", "<leader>fs", function() builtin.live_grep({cwd = get_cwd()}) end, { desc = "Find string in cwd" })
+    vim.keymap.set("n", "<leader>fc", function() builtin.grep_string({cwd = get_cwd()}) end, { desc = "Find string under cursor in cwd" })
+    vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
+    vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find current buffers" })
 
   end
 }
