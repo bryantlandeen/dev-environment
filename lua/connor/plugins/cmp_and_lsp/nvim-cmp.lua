@@ -1,5 +1,6 @@
 return {
   "hrsh7th/nvim-cmp",
+  -- tag = "v0.0.1",
   event = "InsertEnter",
   dependencies = {
     "hrsh7th/cmp-buffer", -- source for text in buffer
@@ -20,6 +21,19 @@ return {
 
     --loads vscode style snippets from installed plugins
     require("luasnip.loaders.from_vscode").lazy_load()
+
+    -- disable snippet when exiting insert mode
+    vim.api.nvim_create_autocmd('ModeChanged', {
+      pattern = '*',
+      callback = function()
+        if ((vim.v.event.old_mode == 's' and vim.v.event.new_mode == 'n') or vim.v.event.old_mode == 'i')
+            and require('luasnip').session.current_nodes[vim.api.nvim_get_current_buf()]
+            and not require('luasnip').session.jump_active
+        then
+          require('luasnip').unlink_current()
+        end
+      end
+    })
 
     -- function required for supertab
     local has_words_before = function()
@@ -74,8 +88,8 @@ return {
 
       -- sources for autocompletion (with highest priority at top)
       sources = cmp.config.sources({
-        { name = "nvim_lsp" },
         { name = "luasnip" },
+        { name = "nvim_lsp" },
         { name = "buffer" },
         { name = "path" },
       }),

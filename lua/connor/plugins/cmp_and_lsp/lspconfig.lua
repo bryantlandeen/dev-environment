@@ -1,11 +1,17 @@
 return {
   "neovim/nvim-lspconfig",
+  tag = "v1.8.0",
   event = {"BufReadPre", "BufNewFile"},
   dependencies = {
-    "hrsh7th/cmp-nvim-lsp",
+    {
+      "hrsh7th/cmp-nvim-lsp",
+      commit = "5af77f54de1b16c34b23cba810150689a3a90312"
+    }
   },
 
   config = function()
+
+    -- vim.lsp.set_log_level('debug')
 
     local lspconfig = require("lspconfig")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -56,7 +62,7 @@ return {
       vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 
       --disable diagnstics
-      vim.diagnostic.config({ virtual_text = false })
+      -- vim.diagnostic.config({ virtual_text = false })
 
     end
 
@@ -76,6 +82,7 @@ return {
       cmake = {},
       bashls = {},
       pyright = {},
+      vhdl_ls = {},
     }
 
     for name, enable in pairs(servers) do
@@ -110,6 +117,28 @@ return {
           },
         },
       },
+    })
+
+    lspconfig["rust_analyzer"].setup({
+        on_attach = on_attach,
+        settings = {
+            ["rust-analyzer"] = {
+                imports = {
+                    granularity = {
+                        group = "module",
+                    },
+                    prefix = "self",
+                },
+                cargo = {
+                    buildScripts = {
+                        enable = true,
+                    },
+                },
+                procMacro = {
+                    enable = true
+                },
+            },
+        },
     })
 
     lspconfig["clangd"].setup({

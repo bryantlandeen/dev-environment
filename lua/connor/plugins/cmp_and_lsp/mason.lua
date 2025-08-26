@@ -1,7 +1,11 @@
 return {
   "williamboman/mason.nvim",
+  tag = "v1.11.0",
   dependencies = {
-    "williamboman/mason-lspconfig.nvim",
+    {
+      "williamboman/mason-lspconfig.nvim",
+      tag = "v1.32.0"
+    }
   },
 
   config = function()
@@ -23,6 +27,8 @@ return {
         "lua_ls",
         "cmake",
         "bashls",
+        "vhdl_ls",
+        "rust_analyzer",
       }
     })
 

@@ -1,6 +1,7 @@
 return {
   "akinsho/bufferline.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  dependencies = { "nvim-tree/nvim-web-devicons",
+                   "famiu/bufdelete.nvim"},
   version = "*",
   -- enabled = false,
 
@@ -37,7 +38,7 @@ return {
     vim.keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", {desc = "go to prev buffer", silent = true})
 
     -- delete current buffer
-    vim.keymap.set("n", "<leader>bd", ":bd<CR>")
+    vim.keymap.set("n", "<leader>bd", ":Bdelete<CR>")
 
   end,
 }
